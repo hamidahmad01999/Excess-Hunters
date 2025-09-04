@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create User</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Bootstrap Icons (for eye icon) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+
+<body class="h-screen bg-cover bg-center flex items-center justify-center"
+  style="background-image: url('https://images.unsplash.com/photo-1508780709619-79562169bc64');">
+
+  <div class="bg-white/80 backdrop-blur-md rounded-xl shadow-lg p-8 w-[90%] max-w-md">
+    <h3 class="text-center text-2xl font-semibold mb-6">Create New User</h3>
+    <form method="POST" action="/register" class="space-y-4">
+      
+      <!-- User Name -->
+      <div>
+        <label class="block mb-1 text-gray-700 font-medium">Name</label>
+        <input type="text" name="username" placeholder="Enter user name"
+          class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block mb-1 text-gray-700 font-medium">Email Address</label>
+        <input type="email" name="email" placeholder="Enter email"
+          class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required>
+      </div>
+
+      <!-- DOB -->
+      <div>
+        <label class="block mb-1 text-gray-700 font-medium">Date of Birth</label>
+        <input type="date" name="dob"
+          class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required>
+      </div>
+
+      <!-- Password -->
+      <div class="relative">
+        <label class="block mb-1 text-gray-700 font-medium">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password"
+          class="w-full pr-10 border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required>
+        <i id="togglePassword"
+          class="bi bi-eye absolute right-3 top-3/4 -translate-y-1/2 text-gray-600 text-lg cursor-pointer"></i>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white text-white font-semibold py-2 px-4 rounded-md transition-colors">
+        Create User
+      </button>
+
+    </form>
+
+    <!-- Messages -->
+    {% if error %}
+    <div class="mt-4 text-red-600 font-medium">{{ error }}</div>
+    {% endif %}
+    {% if success %}
+    <div class="mt-4 text-blue-600 font-medium">{{ success }}</div>
+    {% endif %}
+  </div>
+
+  <!-- Toggle Password Script -->
+  <script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+      const passwordField = document.getElementById("password");
+      const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+      passwordField.setAttribute("type", type);
+      this.classList.toggle("bi-eye");
+      this.classList.toggle("bi-eye-slash");
+    });
+  </script>
+</body>
+
+</html>
