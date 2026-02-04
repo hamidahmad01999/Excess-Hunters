@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom";
+import { createCookieSessionStorage, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import axios from "axios";
+import Loader from "./Loader";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
   };
   const handleLogout = async () => {
     try {
+      setLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/logout`,
-        { withCredentials: true }
+        {},
+        {withCredentials: true }
       );
       toast.success("Logout sucessfull!")
       logout();
@@ -27,8 +31,11 @@ const Navbar = () => {
         toast.error("Network error. Please check your connection.");
 
       }
+    }finally{
+      setLoading(false);
     }
   };
+  if (loading) return <Loader/>
   return (
     <nav className="bg-neutral-100 shadow-lg px-4 py-3 flex items-center justify-between">
       {/* Left: Logo */}
@@ -43,7 +50,7 @@ const Navbar = () => {
 
       {/* Center: Desktop Menu */}
       <ul className="hidden md:flex space-x-6">
-        <li>
+        {/* <li>
           <NavLink
             to=""
             className={({ isActive }) =>
@@ -53,7 +60,7 @@ const Navbar = () => {
           >
             Home
           </NavLink>
-        </li>
+        </li> */}
         {
           user && (
             <NavLink
@@ -95,7 +102,7 @@ const Navbar = () => {
           </div>
           :
           <div className="hidden md:block">
-            <button onClick={() => navigate("/login")} className="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium px-4 py-2 rounded-md transition-colors">
+            <button onClick={() => navigate("")} className="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium px-4 py-2 rounded-md transition-colors">
               Login
             </button>
           </div>
@@ -120,7 +127,7 @@ const Navbar = () => {
             <FaTimes />
           </button>
 
-          <NavLink
+          {/* <NavLink
             to=""
             className={({ isActive }) =>
               `text-2xl transition-colors ${isActive ? "text-teal-700 font-semibold" : "text-gray-700 hover:text-teal-700"
@@ -129,7 +136,7 @@ const Navbar = () => {
             onClick={() => setMenuOpen(false)}
           >
             Home
-          </NavLink>
+          </NavLink> */}
           {
             user && (
               <NavLink
@@ -177,7 +184,7 @@ const Navbar = () => {
               <button
                 className="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium px-6 py-3 rounded-md transition-colors"
                 onClick={() => {
-                  navigate("/login")
+                  navigate("")
                 }}
               >
                 Login

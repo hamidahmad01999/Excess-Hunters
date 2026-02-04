@@ -33,7 +33,7 @@ const Register = () => {
         if (err.response.status === 401) {
           toast.error("You are not authorized to create user!");
         } else if (err.response.status === 400) {
-          toast.error("Please fill all fields");
+          toast.error(err.response.data?.message || "Registration failed");
         } else {
           toast.error("Something went wrong!");
         }

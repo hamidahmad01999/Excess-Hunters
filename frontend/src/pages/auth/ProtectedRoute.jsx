@@ -7,9 +7,9 @@ const ProtectedRoute = ({ children, admin=false, buLead=false, bdLead=false, bdU
 
     
     if(admin){
-        return (user && user.role==="admin")  ? children :<Navigate to="/login" />;
+        return (user && user.role==="admin")  ? children :<Navigate to="/" />;
     }else{
-        return user ? children : <Navigate to="/login" />;
+        return user ? children : <Navigate to="/" />;
     }
 };
 

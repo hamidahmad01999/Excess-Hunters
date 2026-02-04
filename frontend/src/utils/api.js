@@ -9,7 +9,7 @@ instance.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('user');
       localStorage.removeItem('expiry');
-      window.location.href = '/login'; // Redirect to login
+      window.location.href = '/'; // Redirect to login
     }
     return Promise.reject(error);
   }

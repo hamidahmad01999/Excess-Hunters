@@ -67,30 +67,30 @@ export default function ScraperDashboard() {
       if (res.data?.success) {
         toast.success("Scraper started successfully!");
         // Refresh details
-        const refreshRes = await api.get(`${import.meta.env.VITE_API_BASE_URL}/scraper/details`, {
-          withCredentials: true,
-        });
-        if (refreshRes.data?.success) {
-          setLastRunTimeStr(res.data.last_run_time)
-          setNextRunTimeStr(res.data.next_run_time)
-          setDailyRunTimeStr(res.data.daily_run_time)
-          setLastRunTime(refreshRes.data.last_run_time ?? "N/A");
-          setLastAuctionsInserted(refreshRes.data.last_auctions_inserted ?? 0);
-          setLastRunStatus(refreshRes.data.last_run_status ?? "Unknown");
-          setLastErrorMessage(refreshRes.data.last_error_message ?? "");
-          setNextRunTime(refreshRes.data.next_run_time ? new Date(refreshRes.data.next_run_time).toISOString().slice(0, 16) : "");
-          setDailyRunTime(refreshRes.data.daily_run_time ?? "");
-          setNextRunFrom(refreshRes.data.next_run_from ? new Date(refreshRes.data.next_run_from).toISOString().slice(0, 10) : "");
-          setNextRunTo(refreshRes.data.next_run_to ? new Date(refreshRes.data.next_run_to).toISOString().slice(0, 10) : "");
-          setDailyRunFrom(refreshRes.data.daily_run_from ? new Date(refreshRes.data.daily_run_from).toISOString().slice(0, 10) : "");
-          setDailyRunTo(refreshRes.data.daily_run_to ? new Date(refreshRes.data.daily_run_to).toISOString().slice(0, 10) : "");
-        }
+        // const refreshRes = await api.get(`${import.meta.env.VITE_API_BASE_URL}/scraper/details`, {
+        //   withCredentials: true,
+        // });
+        // if (refreshRes.data?.success) {
+        //   setLastRunTimeStr(res.data.last_run_time)
+        //   setNextRunTimeStr(res.data.next_run_time)
+        //   setDailyRunTimeStr(res.data.daily_run_time)
+        //   setLastRunTime(refreshRes.data.last_run_time ?? "N/A");
+        //   setLastAuctionsInserted(refreshRes.data.last_auctions_inserted ?? 0);
+        //   setLastRunStatus(refreshRes.data.last_run_status ?? "Unknown");
+        //   setLastErrorMessage(refreshRes.data.last_error_message ?? "");
+        //   setNextRunTime(refreshRes.data.next_run_time ? new Date(refreshRes.data.next_run_time).toISOString().slice(0, 16) : "");
+        //   setDailyRunTime(refreshRes.data.daily_run_time ?? "");
+        //   setNextRunFrom(refreshRes.data.next_run_from ? new Date(refreshRes.data.next_run_from).toISOString().slice(0, 10) : "");
+        //   setNextRunTo(refreshRes.data.next_run_to ? new Date(refreshRes.data.next_run_to).toISOString().slice(0, 10) : "");
+        //   setDailyRunFrom(refreshRes.data.daily_run_from ? new Date(refreshRes.data.daily_run_from).toISOString().slice(0, 10) : "");
+        //   setDailyRunTo(refreshRes.data.daily_run_to ? new Date(refreshRes.data.daily_run_to).toISOString().slice(0, 10) : "");
+        // }
       } else {
         toast.error(res.data?.message ?? "Failed to start scraper");
       }
     } catch (err) {
       if(err.response.status===400){
-        toast.error(err.response.message);
+        toast.error(err.response.data.message);
       }else{
         toast.error("Error starting scraper");
       }
@@ -247,6 +247,7 @@ export default function ScraperDashboard() {
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight text-center">
           Scraper Control Panel
         </h1>
+        {/*
         <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">Scraper Status</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -344,6 +345,7 @@ export default function ScraperDashboard() {
             )}
           </div>
         </div>
+        */}
         <div className="flex justify-center">
           <button
             onClick={handleStartScraper}
@@ -360,7 +362,7 @@ export default function ScraperDashboard() {
             Schedule Scraper
           </h2>
           <div className="grid gap-6 sm:grid-cols-2">
-            <div>
+            {/* <div>
               <label
                 htmlFor="next_run_time"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -375,7 +377,7 @@ export default function ScraperDashboard() {
                 className="block w-full rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all duration-200"
                 aria-label="Select next run date and time for scraper"
               />
-            </div>
+            </div> */}
             <div>
               <label
                 htmlFor="daily_run_time"
@@ -393,7 +395,7 @@ export default function ScraperDashboard() {
               />
             </div>
 
-            <div>
+            {/* <div>
               <label
                 htmlFor="next_run_from"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -408,8 +410,8 @@ export default function ScraperDashboard() {
                 className="block w-full rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all duration-200"
                 aria-label="Select om date"
               />
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <label
                 htmlFor="next_run_to"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -424,7 +426,7 @@ export default function ScraperDashboard() {
                 className="block w-full rounded-lg border border-gray-300 px-4 py-2 text-sm text-gray-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all duration-200"
                 aria-label="Select next run to date"
               />
-            </div>
+            </div> */}
             <div>
               <label
                 htmlFor="daily_run_from"
@@ -467,14 +469,14 @@ export default function ScraperDashboard() {
             >
               Save Schedule
             </button>
-            <button
+            {/* <button
               onClick={handleSetNextRunRange}
               className="px-6 py-3 bg-teal-500 text-white text-sm sm:text-base font-medium rounded-lg shadow-md hover:bg-teal-600 focus:ring-2 focus:ring-teal-500/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={loading || (!nextRunFrom && !nextRunTo)}
               aria-label="Save next run range"
             >
               Save Next Run Range
-            </button>
+            </button> */}
             <button
               onClick={handleSetDailyRunRange}
               className="px-6 py-3 bg-teal-500 text-white text-sm sm:text-base font-medium rounded-lg shadow-md hover:bg-teal-600 focus:ring-2 focus:ring-teal-500/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"

@@ -7,7 +7,6 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Footer() {
   const { user, logout } = useAuth();
-
   return (
     <footer className="bg-white text-gray-700 py-8 border-t border-gray-200">
       <div className="container mx-auto px-4 md:px-8">
@@ -15,7 +14,7 @@ export default function Footer() {
           {/* Company Name/Logo */}
           <div className="mb-6 md:mb-0">
             <h2 className="text-2xl font-extrabold text-teal-500 tracking-tight">
-              AuctionHub
+              Excess Hunters
             </h2>
             <p className="text-sm text-gray-500 mt-1">
               Your trusted platform for real estate auctions
@@ -24,7 +23,7 @@ export default function Footer() {
 
           {/* Navigation Links */}
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
-            <NavLink
+            {/* <NavLink
               to="/"
               className={({ isActive }) =>
                 `flex items-center space-x-2 font-medium transition-colors duration-200 ${
@@ -34,7 +33,7 @@ export default function Footer() {
             >
               <FaHome size={16} />
               <span>Home</span>
-            </NavLink>
+            </NavLink> */}
             <NavLink
               to="/auctions"
               className={({ isActive }) =>
@@ -55,18 +54,7 @@ export default function Footer() {
                   <FaSignOutAlt size={16} />
                   <span>Logout</span>
                 </button>
-                <NavLink
-                  to="/dashboard"
-                  className={({ isActive }) =>
-                    `flex items-center space-x-2 font-medium transition-colors duration-200 ${
-                      isActive ? "text-teal-600" : "text-teal-500 hover:text-teal-600"
-                    }`
-                  }
-                >
-                  <FaChartBar size={16} />
-                  <span>Dashboard</span>
-                </NavLink>
-                {user.isAdmin && (
+                {user.role==="admin" && (
                   <NavLink
                     to="/dashboard"
                     className={({ isActive }) =>
@@ -82,7 +70,7 @@ export default function Footer() {
               </>
             ) : (
               <NavLink
-                to="/login"
+                to=""
                 className={({ isActive }) =>
                   `flex items-center space-x-2 font-medium transition-colors duration-200 ${
                     isActive ? "text-teal-600" : "text-teal-500 hover:text-teal-600"
@@ -98,7 +86,7 @@ export default function Footer() {
 
         {/* Copyright Notice */}
         <div className="mt-8 text-center text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} AuctionHub. All rights reserved.
+          &copy; {new Date().getFullYear()} Excess Hunters. All rights reserved.
         </div>
       </div>
     </footer>

@@ -9,15 +9,16 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {login} = useAuth();
-  const {user} = useAuth() || null;
+  const { login } = useAuth();
+  const { user } = useAuth() || null;
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(user){
+  useEffect(() => {
+    if (user) {
       navigate("/");
     }
-  },[])
+  }, [])
 
   const togglePassword = () => {
     setPasswordVisible((prev) => !prev);
@@ -29,6 +30,7 @@ const Login = () => {
       return false;
     }
     try {
+      setLoading(true);
       const res = await api.post(
         `${import.meta.env.VITE_API_BASE_URL}/login`,
         { email, password },
@@ -46,20 +48,29 @@ const Login = () => {
         } else {
           toast.error("Something went wrong");
         }
-      }else{
+      } else {
         toast.error("Network error. Please check your connection.");
         console.error(err.message);
       }
+    } finally {
+      setLoading(false);
     }
     setEmail("");
     setPassword("");
   };
+
 
   return (
     <div
       className="h-screen bg-cover bg-center flex items-center justify-center"
       style={{ backgroundImage: "url('/images/login_wallpaper.jpg')" }}
     >
+      {loading && (
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+
       <div className="text-white bg-[rgba(0,0,0,0.3)] backdrop-blur-md rounded-xl shadow-lg p-8 w-full max-w-sm">
         <h3 className="text-center text-2xl  text-white font-semibold mb-6">Start Adventure Now!</h3>
 

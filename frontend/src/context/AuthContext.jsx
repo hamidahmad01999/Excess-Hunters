@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('expiry');
-    navigate('/login'); // Redirect to login
+    navigate('/'); // Redirect to login
   };
 
   useEffect(() => {
